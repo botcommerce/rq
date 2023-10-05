@@ -1303,7 +1303,7 @@ class Worker(BaseWorker):
 
             # Unhandled failure: move the job to the failed queue
             signal_msg = f" (signal {os.WTERMSIG(ret_val)})" if ret_val and os.WIFSIGNALED(ret_val) else ''
-            exc_string = f"Work-horse terminated unexpectedly; waitpid returned {ret_val}{signal_msg}; "
+            exc_string = f"Work-horse terminated unexpectedly; waitpid returned {ret_val}{signal_msg}; retpid-{retpid}; rusage-{rusage}; job_status-{job_status}"
             self.log.warning('Moving job to FailedJobRegistry (%s)', exc_string)
 
             self.handle_work_horse_killed(job, retpid, ret_val, rusage)
